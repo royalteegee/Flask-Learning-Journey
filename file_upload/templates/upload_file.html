@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Inline the main CSS rule for background image */
+        main {
+            flex: 1;
+            padding: 20px;
+            background: url('{{ url_for('static', filename='images/form_background1.jpg') }}') no-repeat center center;
+            background-size: cover;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>VERIFY ~ DIGITAL</h1>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/">About</a></li>
+                        <li><a href="/">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <div class="form-container">
+                <h2>Verify Your Document</h2>
+                <p>Please upload your document for verification. We accept PDF, JPG, and DOC files.</p>
+                <form action="{{ url_for('file_upload') }}" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" required>
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Company Name. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/flash_timeout.js') }}"></script>
+</body>
+</html>
